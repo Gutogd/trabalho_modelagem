@@ -1,12 +1,12 @@
-const { where } = require('sequelize')
-const Produto = require('../model/Produto')
+
+const Usuario = require('../model/Usuarios')
 const { Op } = require('sequelize')
 
-
-const cadastrarProduto = async (req, res)=>{
+s
+const cadastrarUsuario = async (req, res)=>{
     const dados = req.body 
     try {
-        const valores = await Produto.create(dados)
+        const valores = await Usuario.create(dados)
         res.status(201).json(valores)
     } catch (err) {
         res.status(505).json({message: 'erro ao cadastrar'})
@@ -15,9 +15,9 @@ const cadastrarProduto = async (req, res)=>{
 }
 
 
-const listarProduto = async (req, res) => {
+const listarUsuario = async (req, res) => {
     try {
-        const valores = await Produto.findAll()
+        const valores = await Usuario.findAll()
         if(valores){
             res.status(200).json(valores)
         }else{
@@ -30,17 +30,17 @@ const listarProduto = async (req, res) => {
     }
 }
 
-const atualizarProduto = async (req, res)=>{
+const atualizarUsuario = async (req, res)=>{
     const dados = req.body
     const id = req.params.id
 
     try {
-        const valores = await Produto.findByPk(id)
+        const valores = await Usuario.findByPk(id)
         if(valores === null){
             res.status(404).json({message: 'erro ao buscar dados'})
         }else{
-            await Produto.update(dados, {where: {id : id}})
-            const valores = await Produto.findByPk(id)
+            await Usuario.update(dados, {where: {id : id}})
+            const valores = await Usuario.findByPk(id)
             res.status(200).json(valores)
         }
     } catch (err) {
@@ -50,7 +50,7 @@ const atualizarProduto = async (req, res)=>{
 }
 
 
-const apagaProduto = async (req, res)=>{
+const apagarUsuario = async (req, res)=>{
 
     const id = req.params.id
 
@@ -59,8 +59,8 @@ const apagaProduto = async (req, res)=>{
         if(valores === null){
             res.status(404).json({message: 'erro ao buscar dados'})
         }else{
-            await Produto.destroy({where: {id : id}})
-            const valores = await Produto.findByPk(id)
+            await Usuario.destroy({where: {id : id}})
+            const valores = await Usuario.findByPk(id)
             res.status(200).json({message: 'dados excluidos com sucesso!'})
         }
     } catch (err) {
@@ -70,10 +70,10 @@ const apagaProduto = async (req, res)=>{
 }
 
 
-const consultarNome = async (req, res)=>{
+const consultarNomeU = async (req, res)=>{
     const {nome} = req.body
     try {
-        const valores = Produto.findAll({where: 
+        const valores = Usuario.findAll({where: 
             {title :
                 {[Op.like]: `%${nome}%`
         }}})
@@ -84,4 +84,6 @@ const consultarNome = async (req, res)=>{
 }
 
 
-module.exports = {cadastrarProduto, listarProduto, atualizarProduto, apagaProduto}
+
+
+module.exports = {cadastrarUsuario, listarUsuario, atualizarUsuario, apagarUsuario}

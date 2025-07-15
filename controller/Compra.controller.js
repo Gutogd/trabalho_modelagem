@@ -1,12 +1,19 @@
 const { where } = require('sequelize')
-const Produto = require('../model/Produto')
+const Compra = require('../model/Compras')
 const { Op } = require('sequelize')
+const Produto = require('../controller/Produto.controller')
 
 
-const cadastrarProduto = async (req, res)=>{
+const cadastrarCompra = async (req, res)=>{
     const dados = req.body 
+    const {idProd, stock} = req.body
     try {
-        const valores = await Produto.create(dados)
+        const produto = await Produto.findByPk(idProd)
+        if(produto){
+            produto.stock -= stock
+          await produto.save()
+        }
+        const valores = await Compra.create(dados)
         res.status(201).json(valores)
     } catch (err) {
         res.status(505).json({message: 'erro ao cadastrar'})
@@ -15,9 +22,9 @@ const cadastrarProduto = async (req, res)=>{
 }
 
 
-const listarProduto = async (req, res) => {
+const listarCompra = async (req, res) => {
     try {
-        const valores = await Produto.findAll()
+        const valores = await Compra.findAll()
         if(valores){
             res.status(200).json(valores)
         }else{
@@ -30,17 +37,17 @@ const listarProduto = async (req, res) => {
     }
 }
 
-const atualizarProduto = async (req, res)=>{
+const atualizarCompra = async (req, res)=>{
     const dados = req.body
     const id = req.params.id
 
     try {
-        const valores = await Produto.findByPk(id)
+        const valores = await Compra.findByPk(id)
         if(valores === null){
             res.status(404).json({message: 'erro ao buscar dados'})
         }else{
-            await Produto.update(dados, {where: {id : id}})
-            const valores = await Produto.findByPk(id)
+            await Compra.update(dados, {where: {id : id}})
+            const valores = await Compra.findByPk(id)
             res.status(200).json(valores)
         }
     } catch (err) {
@@ -50,17 +57,17 @@ const atualizarProduto = async (req, res)=>{
 }
 
 
-const apagaProduto = async (req, res)=>{
+const apagaCompra = async (req, res)=>{
 
     const id = req.params.id
 
     try {
-        const valores = await Produto.findByPk(id)
+        const valores = await Compra.findByPk(id)
         if(valores === null){
             res.status(404).json({message: 'erro ao buscar dados'})
         }else{
-            await Produto.destroy({where: {id : id}})
-            const valores = await Produto.findByPk(id)
+            await Compra.destroy({where: {id : id}})
+            const valores = await Compra.findByPk(id)
             res.status(200).json({message: 'dados excluidos com sucesso!'})
         }
     } catch (err) {
@@ -70,18 +77,4 @@ const apagaProduto = async (req, res)=>{
 }
 
 
-const consultarNome = async (req, res)=>{
-    const {nome} = req.body
-    try {
-        const valores = Produto.findAll({where: 
-            {title :
-                {[Op.like]: `%${nome}%`
-        }}})
-
-    } catch (err) {
-        
-    }
-}
-
-
-module.exports = {cadastrarProduto, listarProduto, atualizarProduto, apagaProduto}
+module.exports = {cadastrarCompra, listarCompra, atualizarCompra, apagaCompra}
