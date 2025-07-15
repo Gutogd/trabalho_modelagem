@@ -1,4 +1,4 @@
-const { where } = require('sequelize')
+
 const Compra = require('../model/Compras')
 const { Op } = require('sequelize')
 const Produto = require('../controller/Produto.controller')
@@ -16,7 +16,7 @@ const cadastrarCompra = async (req, res)=>{
         const valores = await Compra.create(dados)
         res.status(201).json(valores)
     } catch (err) {
-        res.status(505).json({message: 'erro ao cadastrar'})
+        res.status(500).json({message: 'erro ao cadastrar'})
         console.error('erro ao cadastrar', err)
     }
 }
@@ -32,7 +32,7 @@ const listarCompra = async (req, res) => {
             console.log('erro ao buscar dados')
         }
     } catch (err) {
-        res.status(505).json({message: 'erro ao listar'})
+        res.status(500).json({message: 'erro ao listar'})
         console.error('erro ao listar', err)
     }
 }
@@ -51,7 +51,7 @@ const atualizarCompra = async (req, res)=>{
             res.status(200).json(valores)
         }
     } catch (err) {
-        res.status(505).json({message: 'erro ao atualizar'})
+        res.status(500).json({message: 'erro ao atualizar'})
         console.error('erro ao atualizar', err)
     }
 }
@@ -71,7 +71,7 @@ const apagaCompra = async (req, res)=>{
             res.status(200).json({message: 'dados excluidos com sucesso!'})
         }
     } catch (err) {
-        res.status(505).json({message: 'erro ao apagar'})
+        res.status(500).json({message: 'erro ao apagar'})
         console.error('erro ao apagar', err)
     }
 }
