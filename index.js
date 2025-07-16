@@ -32,16 +32,17 @@ app.put('/compra/:id', compraController.atualizarCompra)
 app.delete('/compra/:id', compraController.apagaCompra)
 
 app.get('/', (req, res)=>{
+    res.status(200).json({message: 'aplicacao rodando com sucesso'})
     console.log('aplicacao rodando com sucesso')
 })
 
 
 db.sync()
-
-.then(()=>{
-    console.log(`Aplicacao rodando em ${hostname}:${PORT}`)
-})
-
-.catch((err)=>{
-    console.error('erro ao rodar', err)
-})
+  .then(() => {
+    app.listen(PORT, () => {
+      console.log(`Servidor escutando em http://${hostname}:${PORT}`);
+    });
+  })
+  .catch((err) => {
+    console.error('Erro ao sincronizar o banco', err);
+  });

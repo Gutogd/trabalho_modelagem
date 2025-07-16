@@ -2,7 +2,7 @@
 const Usuario = require('../model/Usuarios')
 const { Op } = require('sequelize')
 
-s
+
 const cadastrarUsuario = async (req, res)=>{
     const dados = req.body 
     try {
