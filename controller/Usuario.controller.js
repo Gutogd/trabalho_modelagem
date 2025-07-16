@@ -9,7 +9,7 @@ const cadastrarUsuario = async (req, res)=>{
         const valores = await Usuario.create(dados)
         res.status(201).json(valores)
     } catch (err) {
-        res.status(500).json({message: 'erro ao cadastrar'})
+        res.status(500).json({ message: 'erro ao cadastrar' });
         console.error('erro ao cadastrar', err)
     }
 }
@@ -25,7 +25,7 @@ const listarUsuario = async (req, res) => {
             console.log('erro ao buscar dados')
         }
     } catch (err) {
-        res.status(50).json({message: 'erro ao listar'})
+        res.status(500).json({message: 'erro ao listar'})
         console.error('erro ao listar', err)
     }
 }
@@ -55,7 +55,7 @@ const apagarUsuario = async (req, res)=>{
     const id = req.params.id
 
     try {
-        const valores = await Produto.findByPk(id)
+        const valores = await Usuario.findByPk(id)
         if(valores === null){
             res.status(404).json({message: 'erro ao buscar dados'})
         }else{
@@ -70,20 +70,26 @@ const apagarUsuario = async (req, res)=>{
 }
 
 
-const consultarNomeU = async (req, res)=>{
-    const {nome} = req.body
-    try {
-        const valores = Usuario.findAll({where: 
-            {title :
-                {[Op.like]: `%${nome}%`
-        }}})
+const consultarNomeU = async (req, res) => {
+  const { nome } = req.body;
+  try {
+    const valores = await Usuario.findAll({
+      where: {
+        [Op.or]: [
+          { firstName: { [Op.like]: `%${nome}%` } },
+          { lastName: { [Op.like]: `%${nome}%` } }
+        ]
+      }
+    });
+    res.status(200).json(valores);
+  } catch (err) {
+    console.error('Erro ao consultar nome de usuário:', err);
+    res.status(500).json({ message: 'Erro ao consultar nome' });
+  }
+};
 
-    } catch (err) {
-        
-    }
-}
 
 
 
 
-module.exports = {cadastrarUsuario, listarUsuario, atualizarUsuario, apagarUsuario}
+module.exports = {cadastrarUsuario, listarUsuario, atualizarUsuario, apagarUsuario, consultarNomeU}

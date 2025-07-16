@@ -9,7 +9,7 @@ const cadastrarProduto = async (req, res)=>{
         const valores = await Produto.create(dados)
         res.status(201).json(valores)
     } catch (err) {
-        res.status(505).json({message: 'erro ao cadastrar'})
+        res.status(500).json({ message: 'erro ao cadastrar' });
         console.error('erro ao cadastrar', err)
     }
 }
@@ -70,18 +70,23 @@ const apagaProduto = async (req, res)=>{
 }
 
 
-const consultarNome = async (req, res)=>{
-    const {nome} = req.body
-    try {
-        const valores = Produto.findAll({where: 
-            {title :
-                {[Op.like]: `%${nome}%`
-        }}})
+const consultarNome = async (req, res) => {
+  const { nome } = req.body;
+  try {
+    const valores = await Produto.findAll({
+      where: {
+        title: {
+          [Op.like]: `%${nome}%`
+        }
+      }
+    });
+    res.status(200).json(valores);
+  } catch (err) {
+    console.error('Erro ao consultar nome:', err);
+    res.status(500).json({ message: 'Erro ao consultar nome' });
+  }
+};
 
-    } catch (err) {
-        
-    }
-}
 
 
-module.exports = {cadastrarProduto, listarProduto, atualizarProduto, apagaProduto}
+module.exports = {cadastrarProduto, listarProduto, atualizarProduto, apagaProduto, consultarNome}
