@@ -14,15 +14,15 @@ btnListar.addEventListener('click', (e)=>{
     
     valores.forEach(val => {
       
-    res.innerHTML += `Nome : ${val.firstName}<br>`
-    res.innerHTML += `cpf : ${val.lastName}<br>`
-    res.innerHTML += `email : ${val.age}<br>`
+    res.innerHTML += `Nome : ${val.primeiroNome}<br>`
+    res.innerHTML += `cpf : ${val.sobrenome}<br>`
+    res.innerHTML += `email : ${val.idade}<br>`
     res.innerHTML += `telefone : ${val.email}<br>`
-    res.innerHTML += `telefone : ${val.phone}<br>`
-    res.innerHTML += `telefone : ${val.address}<br>`
-    res.innerHTML += `telefone : ${val.city}<br>`
-    res.innerHTML += `telefone : ${val.state}<br>`
-    res.innerHTML += `telefone : ${val.birthDate}<br>`
+    res.innerHTML += `telefone : ${val.telefone}<br>`
+    res.innerHTML += `telefone : ${val.endereco}<br>`
+    res.innerHTML += `telefone : ${val.cidade}<br>`
+    res.innerHTML += `telefone : ${val.estado}<br>`
+    res.innerHTML += `telefone : ${val.dataNascimento}<br>`
     });
   
 })

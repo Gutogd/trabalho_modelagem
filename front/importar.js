@@ -1,62 +1,63 @@
-const mensagem = document.getElementById('mensagem');
-const botao = document.getElementById('importar-tudo');
+const botao = document.getElementById('botaoDB');
 
-botao.addEventListener('click', async () => {
-  mensagem.textContent = 'Importando... aguarde.';
-
+botao.addEventListener('click', async (e) => {
+  e.preventDefault();
   try {
-    // -------- IMPORTAR USUÁRIOS --------
-    const respUsuarios = await fetch('https://dummyjson.com/users');
-    const dadosUsuarios = await respUsuarios.json();
+    // puxar os dados
+    const responseUser = await fetch('https://dummyjson.com/users');
+    //  transformar dados em json
+    const { users } = await responseUser.json();
+    console.log('iniciando')
 
-    for (const user of dadosUsuarios.users) {
-      const bodyUsuario = {
-        id: user.id,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        age: user.age,
-        email: user.email,
-        phone: user.phone,
-        address: user.address.address,
-        city: user.address.city,
-        state: user.address.state,
-        birthDate: user.birthDate
+    // percorrer os dados e enviar para o banco de dados
+    for (let i = 0; i < users.length; i++) {
+      const dadosUser = {
+        primeiroNome: users[i].firstName,
+        sobrenome: users[i].lastName,
+        idade: users[i].age,
+        email: users[i].email,
+        telefone: users[i].phone,
+        endereco: users[i].address.address,
+        cidade: users[i].address.city,
+        estado: users[i].address.state,
+        dataNascimento: users[i].birthDate
       };
 
       await fetch('http://localhost:3000/usuario', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(bodyUsuario)
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(dadosUser)
       });
+
+
     }
-
-    // -------- IMPORTAR PRODUTOS --------
-    const respProdutos = await fetch('https://dummyjson.com/products');
-    const dadosProdutos = await respProdutos.json();
-
-    for (const produto of dadosProdutos.products) {
-      const bodyProduto = {
-        id: produto.id,
-        title: produto.title,
-        description: produto.description,
-        category: produto.category,
-        price: produto.price,
-        discountPercentage: produto.discountPercentage,
-        stock: produto.stock,
-        brand: produto.brand,
-        thumbnail: produto.thumbnail
-      };
-
+    // percorrer os dados de produtos e enviar para o banco de dados
+    const responseProduct = await fetch('https://dummyjson.com/products');
+    const { products } = await responseProduct.json();
+    for (let i = 0; i < products.length; i++) {
+      const dadosProducts = {
+        titulo: products[i].title,
+        descricao: products[i].description,
+        categoria: products[i].category,
+        preco: products[i].price,
+        percentualDesconto: products[i].discountPercentage,
+        estoque: products[i].stock,
+        marca: products[i].brand,
+        imagem: products[i].thumbnail
+      }
       await fetch('http://localhost:3000/produto', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(bodyProduto)
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(dadosProducts)
       });
     }
-
-    mensagem.textContent = 'Importação de usuários e produtos concluída com sucesso!';
-  } catch (err) {
-    console.error(err);
-    mensagem.textContent = 'Erro ao importar dados.';
+    alert('Banco de dados populado com sucesso!');
+  } catch (error) {
+    console.error('Erro ao povoar o banco de dados:', error);
+    alert('Ocorreu um erro ao tentar povoar o banco de dados.');
   }
 });

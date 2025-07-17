@@ -1,43 +1,40 @@
 const { DataTypes } = require('sequelize');
-const db = require('../db/Conn'); 
+const db = require('../db/conn');
 
-const Produto = db.define('Produto', {
+const Produto = db.define('produtos', {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
     autoIncrement: true
   },
-  title: {
+  titulo: {
     type: DataTypes.STRING,
     allowNull: false
   },
-  description: {
+  descricao: {
     type: DataTypes.TEXT,
     allowNull: false
   },
-  category: {
+  categoria: {
     type: DataTypes.STRING,
     allowNull: false
   },
-  price: {
+  preco: {
     type: DataTypes.FLOAT,
     allowNull: false
   },
-  discountPercentage: {
+  percentualDesconto: {
     type: DataTypes.FLOAT,
-    allowNull: false,
   },
-  stock: {
+  estoque: {
     type: DataTypes.INTEGER,
     allowNull: false
   },
-  brand: {
+  marca: {
     type: DataTypes.STRING,
-    allowNull: false
   },
-  thumbnail: {
+  imagem: {
     type: DataTypes.STRING,
-    allowNull: false,
     validate: {
       isUrl: true
     }

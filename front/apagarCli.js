@@ -3,11 +3,11 @@ let btnApagar = document.getElementById('btnApagar')
 
 btnApagar.addEventListener('click', (e)=>{
     e.preventDefault()
-    const id = Number(document.getElementById('id').value)
+    let id = document.getElementById('id').value
 
     res.innerHTML = ''
 
-    fetch(`http://localhost:3000/cliente/${id}`,{
+    fetch(`http://localhost:3000/usuario/${id}`,{
         method: 'DELETE'
     })
     
@@ -15,15 +15,7 @@ btnApagar.addEventListener('click', (e)=>{
 .then(valores => {
 
 
-    res.innerHTML += `Nome : ${valores.firstName}<br>`
-    res.innerHTML += `cpf : ${valores.lastName}<br>`
-    res.innerHTML += `email : ${valores.age}<br>`
-    res.innerHTML += `telefone : ${valores.email}<br>`
-    res.innerHTML += `telefone : ${valores.phone}<br>`
-    res.innerHTML += `telefone : ${valores.address}<br>`
-    res.innerHTML += `telefone : ${valores.city}<br>`
-    res.innerHTML += `telefone : ${valores.state}<br>`
-    res.innerHTML += `telefone : ${valores.birthDate}<br>`
+        res.innerHTML += `dados do Id: ${id} deletados com sucesso!`
 })
     
 })

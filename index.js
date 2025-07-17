@@ -6,7 +6,7 @@ const cors  = require("cors")
 const PORT = 3000
 const hostname = 'localhost'
 
-const db = require('./db/Conn')
+const db = require('./db/conn')
 const produtoController = require('./controller/Produto.controller')
 const usuarioController = require('./controller/Usuario.controller')
 const compraController = require('./controller/Compra.controller')

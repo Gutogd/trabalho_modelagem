@@ -1,5 +1,5 @@
 const { DataTypes } = require('sequelize');
-const db = require('../db/Conn'); // ajuste conforme seu projeto
+const db = require('../db/conn');
 
 const Compra = db.define('Compra', {
   id: {
@@ -7,30 +7,13 @@ const Compra = db.define('Compra', {
     primaryKey: true,
     autoIncrement: true
   },
-  usuarioId: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    references: {
-      model: 'usuarios',
-      key: 'id'
-    }
-  },
-  produtoId: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    references: {
-      model: 'produtos',
-      key: 'id'
-    }
-  },
   quantidade: {
     type: DataTypes.INTEGER,
-    allowNull: false,
+    allowNull: false
   },
   dataCompra: {
-    type: DataTypes.DATE,
-    allowNull: false,
-    defaultValue: DataTypes.NOW
+    type: DataTypes.DATEONLY,
+    allowNull: false
   },
   precoUnitario: {
     type: DataTypes.FLOAT,
@@ -38,8 +21,8 @@ const Compra = db.define('Compra', {
   },
   descontoAplicado: {
     type: DataTypes.FLOAT,
-    allowNull: false,
-},
+    allowNull: false
+  },
   precoFinal: {
     type: DataTypes.FLOAT,
     allowNull: false
@@ -48,10 +31,9 @@ const Compra = db.define('Compra', {
     type: DataTypes.STRING,
     allowNull: false
   },
-  statusCompra: {
+  status: {
     type: DataTypes.STRING,
-    allowNull: false,
-    defaultValue: 'pendente'
+    allowNull: false
   }
 }, {
   tableName: 'compras',

@@ -76,12 +76,12 @@ const consultarNomeU = async (req, res) => {
     const valores = await Usuario.findAll({
       where: {
         [Op.or]: [
-          { firstName: { [Op.like]: `%${nome}%` } },
-          { lastName: { [Op.like]: `%${nome}%` } }
+          { primeiroNome: { [Op.like]: `%${nome}%` } },
+          { sobrenome: { [Op.like]: `%${nome}%` } }
         ]
       }
     });
-    res.status(200).json(valores);
+    res.status(200).json(valores);  
   } catch (err) {
     console.error('Erro ao consultar nome de usuário:', err);
     res.status(500).json({ message: 'Erro ao consultar nome' });
