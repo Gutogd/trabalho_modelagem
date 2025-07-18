@@ -1,4 +1,4 @@
-const botao = document.getElementById('botaoDB');
+const botao = document.getElementById('btnListar');
 
 botao.addEventListener('click', async (e) => {
   e.preventDefault();

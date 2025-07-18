@@ -70,26 +70,42 @@ const apagarUsuario = async (req, res)=>{
 }
 
 
-const consultarNomeU = async (req, res) => {
-  const { nome } = req.body;
-  try {
-    const valores = await Usuario.findAll({
-      where: {
-        [Op.or]: [
-          { primeiroNome: { [Op.like]: `%${nome}%` } },
-          { sobrenome: { [Op.like]: `%${nome}%` } }
-        ]
-      }
-    });
-    res.status(200).json(valores);  
-  } catch (err) {
-    console.error('Erro ao consultar nome de usuário:', err);
-    res.status(500).json({ message: 'Erro ao consultar nome' });
-  }
+const consultarNomeU= async (req, res) => {
+    const nome = req.query.nome;
+    try {
+        const valores = await Usuario.findAll({
+            where: {
+                primeiroNome: {
+                    [Op.like]: `%${nome}%`
+                }
+            }
+        });
+        if (!valores || valores.length === 0) {
+            res.status(404).json({ message: 'Nenhum Usuário encontrado' });
+        } else {
+            res.status(200).json(valores);
+        }
+    } catch (err) {
+        console.error('Erro ao consultar nome:', err);
+        res.status(500).json({ message: 'Erro ao buscar Usuários' });
+    }
+};
+
+const consultarPorId = async (req, res) => {
+    const id = req.params.id
+    try {
+        const usuario = await Usuario.findByPk(id);
+        if (usuario === null) {
+            return res.status(404).json({ message: "Usuário não encontrado." });
+        } else {
+            return res.status(200).json(usuario);
+        }
+
+    } catch (err) {
+        console.error("Erro ao consultar por ID:", err);
+        return res.status(500).json({ message: "Erro ao buscar usuário." });
+    }
 };
 
 
-
-
-
-module.exports = {cadastrarUsuario, listarUsuario, atualizarUsuario, apagarUsuario, consultarNomeU}
+module.exports = {cadastrarUsuario, listarUsuario, atualizarUsuario, apagarUsuario, consultarNomeU, consultarPorId}

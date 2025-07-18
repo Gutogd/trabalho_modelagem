@@ -1,3 +1,4 @@
+// models/Compra.js
 const { DataTypes } = require('sequelize');
 const db = require('../db/conn');
 
@@ -6,6 +7,14 @@ const Compra = db.define('Compra', {
     type: DataTypes.INTEGER,
     primaryKey: true,
     autoIncrement: true
+  },
+  usuarioId: {
+    type: DataTypes.INTEGER,
+    allowNull: false
+  },
+  produtoId: {
+    type: DataTypes.INTEGER,
+    allowNull: false
   },
   quantidade: {
     type: DataTypes.INTEGER,

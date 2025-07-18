@@ -20,11 +20,16 @@ app.post('/produto', produtoController.cadastrarProduto)
 app.get('/produto', produtoController.listarProduto)
 app.put('/produto/:id', produtoController.atualizarProduto)
 app.delete('/produto/:id', produtoController.apagaProduto)
+app.get('/produto/nome', produtoController.consultarNome)
+app.get('/produto/:id', produtoController.consultarPorId)
+app.get('/produto/estoque-critico', produtoController.listarEstoqueCritico)
 
 app.post('/usuario', usuarioController.cadastrarUsuario)
 app.get('/usuario', usuarioController.listarUsuario)
 app.put('/usuario/:id', usuarioController.atualizarUsuario)
 app.delete('/usuario/:id', usuarioController.apagarUsuario)
+app.get('/usuario/nome', usuarioController.consultarNomeU)
+app.get('/usuario/:id', usuarioController.consultarPorId)
 
 app.post('/compra', compraController.cadastrarCompra)
 app.get('/compra', compraController.listarCompra)
@@ -39,7 +44,7 @@ app.get('/', (req, res)=>{
 
 db.sync()
   .then(() => {
-    app.listen(PORT, () => {
+    app.listen(PORT,hostname, () => {
       console.log(`Servidor escutando em http://${hostname}:${PORT}`);
     });
   })

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <script src="atualizarCom.js" defer></script>
+  <link rel="stylesheet" href="./style.css">
+  <title>Cadastrar Compra</title>
+</head>
+<body>
+
+  <nav>
+    <a href="./compra.html">Voltar</a>
+  </nav>
+
+  <div class="formulario-container">
+    <h1>Atualizar Compra</h1>
+
+    <form id="formCadastroCompra">
+
+  <div class="grupo-formulario">
+        <label for="id">Digite o Codigo de registro do usuario</label><br>
+            <input type="text" placeholder="ex: 3" id="id"><br><br>
+      </div>
+
+
+      <div class="grupo-formulario">
+        <label for="usuarioId">ID do Usuário</label>
+        <input type="number" id="usuarioId"  placeholder="Ex: 1" />
+      </div>
+
+      <div class="grupo-formulario">
+        <label for="produtoId">ID do Produto</label>
+        <input type="number" id="produtoId"  placeholder="Ex: 5"  />
+      </div>
+
+      <div class="grupo-formulario">
+        <label for="quantidade">Quantidade</label>
+        <input type="number" id="quantidade"  placeholder="Ex: 2"  />
+      </div>
+
+      <div class="grupo-formulario">
+        <label for="dataCompra">Data da Compra</label>
+        <input type="date" id="dataCompra" name="dataCompra" />
+      </div>
+
+      <div class="grupo-formulario">
+        <label for="precoUnitario">Preço Unitário</label>
+        <input type="number" id="precoUnitario"  placeholder="Ex: 100.00"  />
+      </div>
+
+      <div class="grupo-formulario">
+        <label for="descontoAplicado">Desconto Aplicado (%)</label>
+        <input type="number" id="descontoAplicado"  placeholder="Ex: 10.5" />
+      </div>
+
+      <div class="grupo-formulario">
+        <label for="formaPagamento">Forma de Pagamento</label>
+        <input type="text" id="formaPagamento"  placeholder="Ex: Cartão" />
+      </div>
+
+      <div class="grupo-formulario">
+        <label for="status">Status da Compra</label>
+        <input type="text" id="status"  placeholder="Ex: Pago"  />
+      </div>
+
+      <button type="submit" id="btnCadastrar">Cadastrar</button>
+      <div id="res"></div>
+    </form>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Relatórios Gráficos</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="grafico.js" defer></script>
+  <link rel="stylesheet" href="./style.css">
+  <nav>
+    <a href="index.html">Principal</a>
+  </nav>
+</head>
+<body>
+  <div class="formulario-container">
+    <section>
+      <h1>Gráfico: Produto x Estoque</h1>
+      <div class="grupo-inline">
+        <label>ID Inicial:
+          <input type="number" id="idProdutoInicio" placeholder="ex: 1">
+        </label>
+        <label>ID Final:
+          <input type="number" id="idProdutoFim" placeholder="ex: 10">
+        </label>
+        <button id="btnProdutoEstoque">Gerar Gráfico de Produtos</button>
+      </div>
+      <canvas id="graficoProdutoEstoque"></canvas>
+    </section>
+  </div>
+
+  <div class="formulario-container">
+    <section>
+      <h1>Gráfico: Usuário x Idade</h1>
+      <div class="grupo-inline">
+        <label>ID Inicial:
+          <input type="number" id="idUsuarioInicio" placeholder="ex: 1">
+        </label>
+        <label>ID Final:
+          <input type="number" id="idUsuarioFim" placeholder="ex: 10">
+        </label>
+        <button id="btnUsuarioIdade">Gerar Gráfico de Usuários</button>
+      </div>
+      <canvas id="graficoUsuarioIdade"></canvas>
+    </section>
+  </div>
+</body> 
+</html>

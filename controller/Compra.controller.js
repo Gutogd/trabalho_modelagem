@@ -1,16 +1,20 @@
 
 const Compra = require('../model/Compras')
 const { Op } = require('sequelize')
-const Produto = require('../controller/Produto.controller')
+const Produto = require('../model/Produto')
+const Usuario = require('../model/Usuarios')
 
 
 const cadastrarCompra = async (req, res)=>{
     const dados = req.body 
-    const {idProd, stock} = req.body
+   
+    const {produtoId, quantidade} = req.body
     try {
-        const produto = await Produto.findByPk(idProd)
+       console.log("Dados recebidos no backend:", dados);
+const produto = await Produto.findByPk(produtoId);
+console.log("Produto encontrado:", produto);
         if(produto){
-            produto.stock -= stock
+            produto.quantidade -= quantidade
           await produto.save()
         }
         const valores = await Compra.create(dados)
@@ -25,6 +29,7 @@ const cadastrarCompra = async (req, res)=>{
 const listarCompra = async (req, res) => {
     try {
         const valores = await Compra.findAll()
+        
         if(valores){
             res.status(200).json(valores)
         }else{
@@ -75,6 +80,8 @@ const apagaCompra = async (req, res)=>{
         console.error('erro ao apagar', err)
     }
 }
+
+
 
 
 module.exports = {cadastrarCompra, listarCompra, atualizarCompra, apagaCompra}

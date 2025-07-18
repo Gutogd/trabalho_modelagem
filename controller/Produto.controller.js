@@ -71,22 +71,59 @@ const apagaProduto = async (req, res)=>{
 
 
 const consultarNome = async (req, res) => {
-  const { nome } = req.body;
+  const nome = String(req.query.nome || '');
   try {
     const valores = await Produto.findAll({
       where: {
-        title: {
-          [Op.like]: `%${nome}%`
+                titulo: {
+                    [Op.like]: `%${nome}%`
+                }
+            }
+    });
+    if (valores.length === 0) {
+      res.status(404).json({ message: 'Nenhum produto encontrado' });
+    } else {
+      res.status(200).json(valores);
+    }
+  } catch (err) {
+    console.error('Erro ao consultar nome:', err);
+    res.status(500).json({ message: 'Erro ao buscar produtos' });
+  }
+};
+
+const consultarPorId = async (req, res) => {
+    const id = req.params.id;
+
+    try {
+        const valores = await Produto.findByPk(id);
+
+        if (valores === null) {
+            return res.status(404).json({ message: 'Produto não encontrado' });
+        }else{
+             res.status(200).json(valores);
+        }
+    } catch (err) {
+        console.error('Erro ao consultar por ID:', err);
+        res.status(500).json({ message: 'Erro ao buscar produto' });
+    }
+};
+
+const listarEstoqueCritico = async (req, res) => {
+  try {
+    const produtosCriticos = await Produto.findAll({
+      where: {
+        estoque: {
+          [Op.lt]: 10 
         }
       }
     });
-    res.status(200).json(valores);
-  } catch (err) {
-    console.error('Erro ao consultar nome:', err);
-    res.status(500).json({ message: 'Erro ao consultar nome' });
+
+    res.json(produtosCriticos);
+  } catch (error) {
+    console.error("Erro ao buscar produtos com estoque crítico:", error);
+    res.status(500).json({ erro: "Erro ao buscar produtos com estoque crítico" });
   }
 };
 
 
-
-module.exports = {cadastrarProduto, listarProduto, atualizarProduto, apagaProduto, consultarNome}
+module.exports = {cadastrarProduto, listarProduto, atualizarProduto, apagaProduto, consultarNome, consultarPorId, listarEstoqueCritico}

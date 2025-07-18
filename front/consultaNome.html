@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Listar por Nome</title>
+  <script src="listarNome.js" defer></script>
+
+  <nav>
+    <div class="menu-nav">
+      <a href="./index.html">Página Principal</a>
+    </div>
+  </nav>
+
+  <link rel="stylesheet" href="./style.css" />
+</head>
+
+<body>
+  <div class="barra-topo">
+    <h1>Listagem por Nome</h1>
+  </div>
+
+  <div class="container-graficos">
+    <div class="formulario-container">
+      <h1>Usuário por Nome</h1>
+      <div class="grupo-inline">
+        <label for="nomeU">Nome:</label>
+        <input type="text" id="nomeU" placeholder="Ex: João">
+        <button id="btnListarUS">Listar Usuário</button>
+      </div>
+      <div id="res"></div>
+    </div>
+
+    <div class="formulario-container">
+      <h1>Produto por Nome</h1>
+      <div class="grupo-inline">
+        <label for="nomeP">Nome Produto:</label>
+        <input type="text" id="nomeP" placeholder="Ex: Celular">
+        <button id="btnListarPD">Listar Produto</button>
+      </div>
+      <div id="resP"></div>
+    </div>
+  </div>
+</body>
+</html>
