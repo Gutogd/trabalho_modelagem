@@ -41,8 +41,8 @@ botao.addEventListener('click', async (e) => {
         titulo: products[i].title,
         descricao: products[i].description,
         categoria: products[i].category,
-        preco: products[i].price,
-        percentualDesconto: products[i].discountPercentage,
+        precoUnitario: products[i].price,
+        descontoAplicado: products[i].discountPercentage,
         estoque: products[i].stock,
         marca: products[i].brand,
         imagem: products[i].thumbnail

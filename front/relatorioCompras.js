@@ -4,13 +4,16 @@ async function carregarCompras() {
   try {
     const res = await fetch("http://localhost:3000/compra"); 
     const compras = await res.json();
-
+    console.log(compras)
     compras.forEach(compra => {
       const tr = document.createElement("tr");
-
-      const nomeUsuario = `${compra.Usuario?.primeiroNome || 'N/A'} ${compra.Usuario?.sobrenome || ''}`;
-      const nomeProduto = compra.Produto?.titulo || 'Produto não encontrado';
-
+      const resPro =  fetch(`http://localhost:3000/produto/id/${compra.produtoId}`,{
+          method: 'GET'
+      })
+      const produto = resPro.json()
+      const nomeUsuario = `${compra.Usuario?.primeiroNome || 'N/A'}`;
+      const nomeProduto = produto.titulo || 'Produto não encontrado';
+console.log(produto)
       tr.innerHTML = `
         <td>${nomeUsuario}</td>
         <td>${nomeProduto}</td>

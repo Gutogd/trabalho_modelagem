@@ -38,24 +38,24 @@
         <input type="date" id="dataCompra" name="dataCompra" />
       </div>
 
-      <div class="grupo-formulario">
-        <label for="precoUnitario">Preço Unitário</label>
-        <input type="number" id="precoUnitario"  placeholder="Ex: 100.00"  />
-      </div>
-
-      <div class="grupo-formulario">
-        <label for="descontoAplicado">Desconto Aplicado (%)</label>
-        <input type="number" id="descontoAplicado"  placeholder="Ex: 10.5" />
-      </div>
 
       <div class="grupo-formulario">
         <label for="formaPagamento">Forma de Pagamento</label>
-        <input type="text" id="formaPagamento"  placeholder="Ex: Cartão" />
+        <select id="formaPagamento">
+          <option id="PIX">PIX</option>
+          <option id="cartao">cartão</option>
+          <option id="boleto">boleto</option>
+        </select>
+       
       </div>
 
       <div class="grupo-formulario">
         <label for="status">Status da Compra</label>
-        <input type="text" id="status"  placeholder="Ex: Pago"  />
+        <select id="status">
+          <option id="pendente">pendente</option>
+          <option id="concluida">concluida</option>
+          <option id="cancelada">cancelada</option>
+        </select>
       </div>
 
       <button type="submit" id="btnCadastrar">Cadastrar</button>

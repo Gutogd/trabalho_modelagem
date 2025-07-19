@@ -19,11 +19,11 @@ const Produto = db.define('produtos', {
     type: DataTypes.STRING,
     allowNull: false
   },
-  preco: {
+  precoUnitario: {
     type: DataTypes.FLOAT,
     allowNull: false
   },
-  percentualDesconto: {
+  descontoAplicado: {
     type: DataTypes.FLOAT,
   },
   estoque: {

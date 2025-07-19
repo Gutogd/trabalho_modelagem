@@ -1,59 +1,80 @@
-let res = document.getElementById('res');
-let btnCadastrar = document.getElementById('btnCadastrar');
+const btnCadastrar = document.getElementById('btnCadastrar')
+const res = document.getElementById('res')
 
-btnCadastrar.addEventListener('click', (e) => {
-    e.preventDefault();
+async function cadastrarCom(e) {
+    e.preventDefault()
+    try {
+        const dados = {
+            usuarioId: document.getElementById('usuarioId').value,
+            produtoId: document.getElementById('produtoId').value,
+            quantidade: document.getElementById('quantidade').value,
+            dataCompra: document.getElementById('dataCompra').value,
+            precoUnitario: 0, 
+            descontoAplicado: 0, 
+            precoFinal: 0,
+            formaPagamento: document.getElementById('formaPagamento').value,
+            status: document.getElementById('status').value,  
+        }
+        console.log(dados)
+        const responseProd = await fetch(`http://localhost:3000/produto/id/${dados.produtoId}`, {
+            method: 'GET',
+        })
+        if (!responseProd.ok) {
+            if (responseProd.status === 404) {
+                alert('Produto com esse ID não existe!')
+            } else {
+                alert(`Erro ao buscar produto: ${responseProd.status}`)
+            }
+            return
+        }
 
-    let usuarioId = parseInt(document.getElementById('usuarioId').value);
-    let produtoId = parseInt(document.getElementById('produtoId').value);
-    let quantidade = parseInt(document.getElementById('quantidade').value);
-    let dataCompra = document.getElementById('dataCompra').value;
-    let precoUnitario = parseFloat(document.getElementById('precoUnitario').value);
-    let descontoAplicado = parseFloat(document.getElementById('descontoAplicado').value);
-    let formaPagamento = document.getElementById('formaPagamento').value;
-    let status = document.getElementById('status').value;
+        const responseUser = await fetch(`http://localhost:3000/usuario/id/${dados.usuarioId}`, {
+            method: 'GET',
+        })
+        
+        if (!responseUser.ok) {
+            if (responseUser.status === 404) {
+                alert('Usuário com esse ID não existe!')
+            } else {
+                alert(`Erro ao buscar usuário: ${responseUser.status}`)
+            }
+            return
+        }
 
-  
-    let precoFinal = precoUnitario * quantidade * (1 - (descontoAplicado / 100));
+        const produto = await responseProd.json()
+        dados.precoUnitario = produto.precoUnitario
+        dados.descontoAplicado = produto.descontoAplicado
+        dados.precoFinal = (produto.precoUnitario - (produto.precoUnitario * (produto.descontoAplicado / 100))).toFixed(2)
 
-    const dados = {
-        usuarioId: usuarioId,
-        produtoId: produtoId,
-        quantidade: quantidade,
-        dataCompra: dataCompra,
-        precoUnitario: precoUnitario,
-        descontoAplicado: descontoAplicado,
-        precoFinal: precoFinal,
-        formaPagamento: formaPagamento,
-        status: status
-    };
-console.log("Dados enviados ao servidor:", dados);
-    res.innerHTML = '';
+        const response = await fetch('http://localhost:3000/compra', {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(dados)
+        })
 
-    fetch('http://localhost:3000/compra', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(dados)
-    })
-    .then(resp => resp.json())
-    .then(valores => {
-        console.log(valores);
+        if (!response.ok) {
+            alert(`Erro ao cadastrar compra: ${response.status}`)
+            return
+        }
+        const compras = await response.json()
+        res.innerHTML = `
+        Compra cadastrada com sucesso!<br>
+            <td>${compras.id}</td>
+            <td>${compras.usuarioId}</td>
+            <td>${compras.produtoId}</td>
+            <td>${compras.quantidade}</td>
+            <td>R$${compras.dataCompra}</td>
+            <td>${compras.precoUnitario}%</td>
+            <td>${compras.descontoAplicado}</td>
+            <td>${compras.precoFinal}</td>
+            <td>${compras.formaPagamento}</td>
+            <td>${compras.status}</td>
+            `
+    } catch (error) {
+        console.error(error)
+    }
+}
 
-        res.innerHTML += `Compra cadastrada com sucesso!<br>`;
-        res.innerHTML += `ID da Compra: ${valores.id}<br>`;
-        res.innerHTML += `Usuário ID: ${valores.usuarioId}<br>`;
-        res.innerHTML += `Produto ID: ${valores.produtoId}<br>`;
-        res.innerHTML += `Quantidade: ${valores.quantidade}<br>`;
-        res.innerHTML += `Data da Compra: ${valores.dataCompra}<br>`;
-        res.innerHTML += `Preço Unitário: R$ ${valores.precoUnitario}<br>`;
-        res.innerHTML += `Desconto Aplicado: ${valores.descontoAplicado}%<br>`;
-        res.innerHTML += `Preço Final: R$ ${valores.precoFinal}<br>`;
-        res.innerHTML += `Forma de Pagamento: ${valores.formaPagamento}<br>`;
-        res.innerHTML += `Status: ${valores.status}<br>`;
-    })
-    .catch(err => {
-        console.error('erro ao cadastrar dados', err)
-    });
-});
+btnCadastrar.addEventListener('click', cadastrarCom)
