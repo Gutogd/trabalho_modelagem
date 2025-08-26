@@ -6,8 +6,8 @@ async function carregarProdutos() {
     const produtos = await res.json()
 
     produtos.forEach(produto => {
-      const precoOriginal = produto.preco
-      const desconto = produto.percentualDesconto   
+      const precoOriginal = produto.precoUnitario
+      const desconto = produto.descontoAplicado 
       const precoComDesconto = (precoOriginal * (1 - desconto / 100)).toFixed(2)
 
       const tr = document.createElement("tr")
@@ -27,3 +27,5 @@ async function carregarProdutos() {
 }
 
 carregarProdutos()
+
+//
