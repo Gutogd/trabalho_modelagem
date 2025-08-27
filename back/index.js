@@ -6,6 +6,7 @@ const cors  = require("cors")
 const PORT = 3000
 const hostname = 'localhost'
 
+
 const db = require('./db/Conn')
 const produtoController = require('./controller/Produto.controller')
 const usuarioController = require('./controller/Usuario.controller')
@@ -20,7 +21,7 @@ app.post('/produto', produtoController.cadastrarProduto)
 app.get('/produto', produtoController.listarProduto)
 app.put('/produto/:id', produtoController.atualizarProduto)
 app.delete('/produto/:id', produtoController.apagaProduto)
-app.get('/produto/nome/:nome', produtoController.consultarNome)
+app.get('/produto/nome/:nome', produtoController.consultarNomeP)
 app.get('/produto/id/:id', produtoController.consultarPorId)
 app.get('/produto/estoque-critico', produtoController.listarEstoqueCritico)
 
@@ -28,7 +29,7 @@ app.post('/usuario', usuarioController.cadastrarUsuario)
 app.get('/usuario', usuarioController.listarUsuario)
 app.put('/usuario/:id', usuarioController.atualizarUsuario)
 app.delete('/usuario/:id', usuarioController.apagarUsuario)
-app.get('/usuario/nome/nome', usuarioController.consultarNomeU)
+app.get('/usuario/nome/:nome', usuarioController.consultarNomeU)
 app.get('/usuario/id/:id', usuarioController.consultarPorId)
 
 app.post('/compra', compraController.cadastrarCompra)

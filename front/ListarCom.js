@@ -11,7 +11,6 @@ btnListar.addEventListener('click', (e) => {
         .then(valores => {
             valores.forEach(val => {
                 res.innerHTML += `<hr>`;
-                res.innerHTML += `Compra registrada com sucesso!<br>`;
                 res.innerHTML += `ID da Compra: ${val.id}<br>`;
                 res.innerHTML += `Usuário ID: ${val.usuarioId}<br>`;
                 res.innerHTML += `Produto ID: ${val.produtoId}<br>`;
@@ -21,7 +20,7 @@ btnListar.addEventListener('click', (e) => {
                 res.innerHTML += `Desconto Aplicado: ${val.descontoAplicado}%<br>`;
                 res.innerHTML += `Preço Final: R$ ${val.precoFinal.toFixed(2)}<br>`;
                 res.innerHTML += `Forma de Pagamento: ${val.formaPagamento}<br>`;
-                res.innerHTML += `Status: ${val.status}<br>`;
+                res.innerHTML += `Status: ${val.status}<br><br><br><br>`;
             });
         })
         .catch(err => {

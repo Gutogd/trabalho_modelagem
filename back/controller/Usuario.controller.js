@@ -70,8 +70,8 @@ const apagarUsuario = async (req, res)=>{
 }
 
 
-const consultarNomeU= async (req, res) => {
-    const nome = req.query.nome;
+const consultarNomeU = async (req, res) => {
+    const nome = req.params.nome
     try {
         const valores = await Usuario.findAll({
             where: {
@@ -79,17 +79,17 @@ const consultarNomeU= async (req, res) => {
                     [Op.like]: `%${nome}%`
                 }
             }
-        });
+        })
         if (!valores || valores.length === 0) {
-            res.status(404).json({ message: 'Nenhum Usuário encontrado' });
+            res.status(404).json({ message: 'Nenhum produto encontrado' })
         } else {
-            res.status(200).json(valores);
+            res.status(200).json(valores)
         }
     } catch (err) {
-        console.error('Erro ao consultar nome:', err);
-        res.status(500).json({ message: 'Erro ao buscar Usuários' });
+        console.error('Erro ao consultar nome:', err)
+        res.status(500).json({ message: 'Erro ao buscar produtos' })
     }
-};
+}
 
 const consultarPorId = async (req, res) => {
     const id = req.params.id

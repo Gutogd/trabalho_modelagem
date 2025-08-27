@@ -22,7 +22,8 @@ btnListar.addEventListener('click', (e)=>{
         res.innerHTML += `Desconto: ${val.percentualDesconto}%<br>`;
         res.innerHTML += `Estoque: ${val.estoque}<br>`;
         res.innerHTML += `Marca: ${val.marca}<br>`;
-        res.innerHTML += `Imagem: <a href="${val.imagem}" target="_blank">Ver imagem</a><br>`;
+        res.innerHTML += `Imagem:<br><img src="${val.imagem}" alt="Imagem do produto" width="150"><br>`;
+
     });
   
 })

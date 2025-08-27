@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title>Relatório Gerencial</title>
   <link rel="stylesheet" href="style.css">
-  <script src="relatorioGerencial.js" defer></script>
+  <script src="relatorioConsolidado.js" defer></script>
 </head>
 <body>
   <nav>
@@ -15,10 +15,22 @@
 
   <div class="menu-container">
     <h1>Relatório Gerencial</h1>
-
-   <div id="tabRel"></div>
-      
-
+    
+    <table>
+      <thead>
+        <tr>
+          <th>ID Compra</th>
+          <th>Usuário</th>
+          <th>Produto</th>
+          <th>Qtd.</th>
+          <th>Data</th>
+          <th>Valor Final</th>
+          <th>Pagamento</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody id="tabela-gerencial"></tbody>
+    </table>
   </div>
 </body>
 </html>
