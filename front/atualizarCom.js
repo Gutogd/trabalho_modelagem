@@ -49,9 +49,7 @@ btnCadastrar.addEventListener('click', async (e) => {
     console.log("user: ",user)
     console.log("prod: ",prod)
 
-// cabo?
-// acho que sim
-// vou commitar e ver se funfa 
+
 
     dados.precoUnitario = prod.precoUnitario
     dados.descontoAplicado = prod.descontoAplicado
