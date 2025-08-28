@@ -1,32 +1,63 @@
 let res = document.getElementById('res');
 let btnCadastrar = document.getElementById('btnCadastrar');
 
-btnCadastrar.addEventListener('click', (e) => {
+btnCadastrar.addEventListener('click', async (e) => {
     e.preventDefault();
     let id = document.getElementById('id').value
     let usuarioId = parseInt(document.getElementById('usuarioId').value);
     let produtoId = parseInt(document.getElementById('produtoId').value);
     let quantidade = parseInt(document.getElementById('quantidade').value);
     let dataCompra = document.getElementById('dataCompra').value;
-    let precoUnitario = parseFloat(document.getElementById('precoUnitario').value);
-    let descontoAplicado = parseFloat(document.getElementById('descontoAplicado').value);
     let formaPagamento = document.getElementById('formaPagamento').value;
     let status = document.getElementById('status').value;
 
-
-    let precoFinal = precoUnitario * quantidade * (1 - (descontoAplicado / 100));
 
     const dados = {
         usuarioId: usuarioId,
         produtoId: produtoId,
         quantidade: quantidade,
         dataCompra: dataCompra,
-        precoUnitario: precoUnitario,
-        descontoAplicado: descontoAplicado,
-        precoFinal: precoFinal,
+        precoUnitario: 0,
+        descontoAplicado: 0,
+        precoFinal: 0,
         formaPagamento: formaPagamento,
         status: status
     };
+
+    let responseUser = await fetch(`http://localhost:3000/usuario/id/${usuarioId}`, {
+        method: 'GET'
+    })
+    if (!responseUser.ok) {
+        alert('esse usuario com esse id nao existe colega')
+        return
+    }
+    let user = await responseUser.json()
+
+
+
+    let responseProd = await fetch(`http://localhost:3000/produto/id/${produtoId}`, {
+        method: 'GET'
+    })
+    if (!responseProd.ok) {
+        alert('esse produto nao existe na porra do banco')
+        return
+    }
+
+
+    let prod = await responseProd.json()
+
+    console.log("user: ",user)
+    console.log("prod: ",prod)
+
+// cabo?
+// acho que sim
+// vou commitar e ver se funfa 
+
+    dados.precoUnitario = prod.precoUnitario
+    dados.descontoAplicado = prod.descontoAplicado
+    dados.precoFinal = parseFloat(((prod.precoUnitario - (prod.precoUnitario * (prod.descontoAplicado / 100))) * quantidade).toFixed(2))
+
+    console.log('dados: ', dados)
     console.log("Dados enviados ao servidor:", dados);
     res.innerHTML = '';
 

@@ -28,6 +28,9 @@ const Compra = db.define('Compra', {
     type: DataTypes.INTEGER,
     allowNull: false
   },
+  // nao é pra ter preço unitário e nem desconto no editar compra
+
+  //Okk, vou tirar 
   dataCompra: {
     type: DataTypes.DATEONLY,
     allowNull: false

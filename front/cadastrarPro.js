@@ -34,12 +34,15 @@ btnCadastrar.addEventListener('click', (e) => {
         body: JSON.stringify(dados)
     })
         .then(resp => resp.json())
+// precisa da imagem pra funcionar no teu código
 
+
+// tem como deixar sem precisar, obrigatoriamente no caso. tem, mas vou ter q ver teu código todo pra ver como
         .then(valores => {
             console.log(valores);
-
+            console.log(dados)
             res.innerHTML += `Produto cadastrado com sucesso<br>`;
-            res.innerHTML += `Título: ${valores.titulo}<br>`;
+            res.innerHTML += `Título: ${titulo}<br>`;
             res.innerHTML += `Descrição: ${valores.descricao}<br>`;
             res.innerHTML += `Categoria: ${valores.categoria}<br>`;
             res.innerHTML += `Preço: R$ ${valores.precoUnitario}<br>`;

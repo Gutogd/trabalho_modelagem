@@ -19,6 +19,10 @@ async function cadastrarCom(e) {
         const responseProd = await fetch(`http://localhost:3000/produto/id/${dados.produtoId}`, {
             method: 'GET',
         })
+        // esse aqui ja nao é o meu código?
+        // eu nao sei 
+        // é meu pra carai kkkkkkkkk
+        // obv q é cara, tu que me mandou msg qnd conseguiu fazer, nao, tlgd, mas achei estranho q teu editar nao ta com o meu mas o cadastrar ta
         if (!responseProd.ok) {
             if (responseProd.status === 404) {
                 alert('Produto com esse ID não existe!')

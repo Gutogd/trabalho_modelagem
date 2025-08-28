@@ -37,13 +37,12 @@ const Produto = db.define('produtos', {
   imagem: {
     type: DataTypes.STRING,
     allowNull: true,
-    validate: {
-      isUrl: true
-    }
   }
 }, {
   tableName: 'produtos',
   timestamps: false
 });
 
+
+// o compra ta dando a mesma coisa, só de atualizar a compra
 module.exports = Produto;
