@@ -32,9 +32,11 @@ const Produto = db.define('produtos', {
   },
   marca: {
     type: DataTypes.STRING,
+    allowNull: true
   },
   imagem: {
     type: DataTypes.STRING,
+    allowNull: true,
     validate: {
       isUrl: true
     }

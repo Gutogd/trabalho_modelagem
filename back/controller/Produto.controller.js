@@ -2,14 +2,14 @@ const Produto = require('../model/Produto')
 const { Op } = require('sequelize')
 
 
-const cadastrarProduto = async (req, res) => {
-    const dados = req.body
+const cadastrarProduto = async (req, res)=>{
+    const dados = req.body 
     try {
         const valores = await Produto.create(dados)
         res.status(201).json(valores)
     } catch (err) {
-        res.status(500).json({ message: 'Erro ao cadastrar' })
-        console.error('Erro ao cadastrar', err)
+        res.status(500).json({ message: 'erro ao cadastrar' });
+        console.error('erro ao cadastrar', err)
     }
 }
 
@@ -17,49 +17,54 @@ const cadastrarProduto = async (req, res) => {
 const listarProduto = async (req, res) => {
     try {
         const valores = await Produto.findAll()
-        if (valores) {
+        if(valores){
             res.status(200).json(valores)
-        } else {
-            res.status(404).json({ message: 'Erro ao buscar dados' })
+        }else{
+            res.status(404).json({message: 'erro ao buscar dados'})
+            console.log('erro ao buscar dados')
         }
     } catch (err) {
-        res.status(500).json({ message: 'Erro ao listar' })
-        console.error('Erro ao listar', err)
+        res.status(500).json({message: 'erro ao listar'})
+        console.error('erro ao listar', err)
     }
 }
 
-
-const atualizarProduto = async (req, res) => {
+const atualizarProduto = async (req, res)=>{
     const dados = req.body
     const id = req.params.id
+
     try {
-        const produto = await Produto.findByPk(id)
-        if (!produto) {
-            res.status(404).json({ message: 'Produto não encontrado' })
-        } else {
-            await Produto.update(dados, { where: { id: id } })
-            const atualizado = await Produto.findByPk(id)
-            res.status(200).json(atualizado)
+        const valores = await Produto.findByPk(id)
+        if(valores === null){
+            res.status(404).json({message: 'erro ao buscar dados'})
+        }else{
+            await Produto.update(dados, {where: {id : id}})
+            const valores = await Produto.findByPk(id)
+            res.status(200).json(valores)
         }
     } catch (err) {
-        res.status(500).json({ message: 'Erro ao atualizar' })
-        console.error('Erro ao atualizar', err)
+        res.status(500).json({message: 'erro ao atualizar'})
+        console.error('erro ao atualizar', err)
     }
 }
 
-const apagaProduto = async (req, res) => {
+
+const apagaProduto = async (req, res)=>{
+
     const id = req.params.id
+
     try {
-        const produto = await Produto.findByPk(id)
-        if (!produto) {
-            res.status(404).json({ message: 'Produto não encontrado' })
-        } else {
-            await Produto.destroy({ where: { id: id } })
-            res.status(200).json({ message: 'Produto excluído com sucesso!' })
+        const valores = await Produto.findByPk(id)
+        if(valores === null){
+            res.status(404).json({message: 'erro ao buscar dados'})
+        }else{
+            await Produto.destroy({where: {id : id}})
+            const valores = await Produto.findByPk(id)
+            res.status(200).json({message: 'dados excluidos com sucesso!'})
         }
     } catch (err) {
-        res.status(500).json({ message: 'Erro ao apagar' })
-        console.error('Erro ao apagar', err)
+        res.status(500).json({message: 'erro ao apagar'})
+        console.error('erro ao apagar', err)
     }
 }
 

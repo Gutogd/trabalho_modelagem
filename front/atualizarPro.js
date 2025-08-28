@@ -7,8 +7,8 @@ btnCadastrar.addEventListener('click', (e) => {
     let titulo = document.getElementById('titulo').value;
     let descricao = document.getElementById('descricao').value;
     let categoria = document.getElementById('categoria').value;
-    let preco = parseFloat(document.getElementById('preco').value);
-    let percentualDesconto = parseFloat(document.getElementById('percentualDesconto').value);
+    let precoUnitario = parseFloat(document.getElementById('preco').value);
+    let descontoAplicado = parseFloat(document.getElementById('percentualDesconto').value);
     let estoque = parseInt(document.getElementById('estoque').value);
     let marca = document.getElementById('marca').value;
     let imagem = document.getElementById('imagem').value;
@@ -17,8 +17,8 @@ btnCadastrar.addEventListener('click', (e) => {
         titulo : titulo,
         descricao : descricao,
         categoria : categoria,
-        preco : preco,
-        percentualDesconto : percentualDesconto,
+        precoUnitario : precoUnitario,
+        descontoAplicado : descontoAplicado,
         estoque : estoque,
         marca : marca,
         imagem : imagem
@@ -38,15 +38,16 @@ btnCadastrar.addEventListener('click', (e) => {
     .then(valores => {
         console.log(valores);
 
-        res.innerHTML += `Produto cadastrado com sucesso<br>`;
-        res.innerHTML += `Título: ${valores.titulo}<br>`;
-        res.innerHTML += `Descrição: ${valores.descricao}<br>`;
-        res.innerHTML += `Categoria: ${valores.categoria}<br>`;
-        res.innerHTML += `Preço: R$ ${valores.preco}<br>`;
-        res.innerHTML += `Desconto: ${valores.percentualDesconto}%<br>`;
-        res.innerHTML += `Estoque: ${valores.estoque}<br>`;
-        res.innerHTML += `Marca: ${valores.marca}<br>`;
-        res.innerHTML += `Imagem: <a href="${valores.imagem}" target="_blank">Ver imagem</a><br>`;
+res.innerHTML += `Produto cadastrado com sucesso<br>`;
+res.innerHTML += `Título: ${valores.titulo}<br>`;
+res.innerHTML += `Descrição: ${valores.descricao}<br>`;
+res.innerHTML += `Categoria: ${valores.categoria}<br>`;
+res.innerHTML += `Preço: R$ ${valores.precoUnitario}<br>`;
+res.innerHTML += `Desconto: ${valores.descontoAplicado}%<br>`;
+res.innerHTML += `Estoque: ${valores.estoque}<br>`;
+res.innerHTML += `Marca: ${valores.marca}<br>`;
+res.innerHTML += `Imagem: <a href="${valores.imagem}" target="_blank">Ver imagem</a><br>`;
+
     })
     
 });
